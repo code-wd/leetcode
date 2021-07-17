@@ -8,8 +8,32 @@ candidates 中的数字可以无限制重复被选取。
 
 链接：https://leetcode-cn.com/problems/combination-sum
 """
+import copy
 
 
 class Solution:
+    def __init__(self):
+        super(Solution, self).__init__()
+        self.res = []
+
     def combinationSum(self, candidates, target):
-        pass
+        def bag(nums, bag_nums, goal_num):
+            if sum(bag_nums) == goal_num:
+                self.res.append(copy.deepcopy(bag_nums))
+            if sum(bag_nums) > goal_num:
+                return
+
+            for i in range(len(nums)):
+                bag_nums.append(nums[i])
+                bag(nums[i:], bag_nums, goal_num)
+                bag_nums.pop()
+        bag(candidates, [], target)
+        return self.res
+
+
+if __name__ == '__main__':
+    solution = Solution()
+    candidates = [2,3,5]
+    target = 8
+    print(solution.combinationSum(candidates, target))
+
