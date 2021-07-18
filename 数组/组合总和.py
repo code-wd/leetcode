@@ -12,23 +12,22 @@ import copy
 
 
 class Solution:
-    def __init__(self):
-        super(Solution, self).__init__()
-        self.res = []
-
     def combinationSum(self, candidates, target):
-        def bag(nums, bag_nums, goal_num):
+        res = []
+
+        def track(nums, bag_nums, goal_num):
+            # 递归边界条件
             if sum(bag_nums) == goal_num:
-                self.res.append(copy.deepcopy(bag_nums))
+                res.append(bag_nums)
             if sum(bag_nums) > goal_num:
                 return
 
+            # 做出选择、递归、撤销选择
             for i in range(len(nums)):
-                bag_nums.append(nums[i])
-                bag(nums[i:], bag_nums, goal_num)
-                bag_nums.pop()
-        bag(candidates, [], target)
-        return self.res
+                track(nums[i:], bag_nums + [nums[i]], goal_num)
+
+        track(candidates, [], target)
+        return res
 
 
 if __name__ == '__main__':
