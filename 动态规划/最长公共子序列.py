@@ -26,6 +26,6 @@ class Solution:
 
 if __name__ == '__main__':
     solution = Solution()
-    text1 = "abc"
-    text2 = "def"
+    text1 = "intention"
+    text2 = "execution"
     print(solution.longestCommonSubsequence(text1, text2))
